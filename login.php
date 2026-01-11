@@ -1,48 +1,20 @@
 <?php
 
-$login = $_GET["login"];
-$password = $_GET["password"];
+$login = $_POST['login'];
+$password = $_POST['password'];
 
-echo "Votre login est : ".$login;
-echo "<br>";
-echo "Votre mot de passe est : ".$password;
-
-if (isset ( $_GET ["login"] )) {
-    $login = $_GET ["login"];
-    if (! empty ( $login )) {
-        echo "Votre login est : " . $login;
-        echo "<br>";
-    }
-}
-if (isset ( $_GET ["password"] )) {
-    $password = $_GET ["password"];
-    if (! empty ( $password )) {
-        echo "Votre mot de passe est : " . $password;
-    }
-}
-function getVar($name) {
-    if (isset ( $_GET [$name] )) {
-        if(is_numeric($tab[$name])){
-            return $tab[$name];
-        }
-        if (! empty ( $_GET [$name] )) {
-            return $_GET [$name];
-        }
-        return TRUE;
-    }
-    return FALSE;
+$userId = -1;
+if (isset($_POST['create'])) {
+    $userId = createUser($login, $password);
+} else {
+    $userId = authenticate($login, $password);
 }
 
-function postVar($name)
-{
-    if (isset ($_POST [$name])) {
-        if (is_numeric($tab[$name])) {
-            return $tab[$name];
-        }
-        if (!empty ($_POST[$name])) {
-            return $_POST[$name];
-        }
-        return TRUE;
-    }
-    return FALSE;
+if ($userId == -1) {
+    error_log('Login fail account ' . $login . ' from ' . $_SERVER['REMOTE_ADDR']);
+    header('Location: /');
+    die();
 }
+session_start();
+$_SESSION['userid'] = $userId;
+header('Location: /wtf');

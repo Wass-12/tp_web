@@ -1,48 +1,44 @@
 <?php
+session_start();
 
-$login = $_GET["login"];
-$password = $_GET["password"];
+$users = json_decode(file_get_contents("data/users.json"), true);
 
-echo "Votre login est : ".$login;
-echo "<br>";
-echo "Votre mot de passe est : ".$password;
+if (!empty($_POST)) {
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
 
-if (isset ( $_GET ["login"] )) {
-    $login = $_GET ["login"];
-    if (! empty ( $login )) {
-        echo "Votre login est : " . $login;
-        echo "<br>";
-    }
-}
-if (isset ( $_GET ["password"] )) {
-    $password = $_GET ["password"];
-    if (! empty ( $password )) {
-        echo "Votre mot de passe est : " . $password;
-    }
-}
-function getVar($name) {
-    if (isset ( $_GET [$name] )) {
-        if(is_numeric($tab[$name])){
-            return $tab[$name];
+    foreach ($users as $u) {
+        if ($u['email'] === $email && password_verify($password, $u['password'])) {
+            $_SESSION['user'] = $u;
+            header("Location: index.php");
+            exit;
         }
-        if (! empty ( $_GET [$name] )) {
-            return $_GET [$name];
-        }
-        return TRUE;
     }
-    return FALSE;
-}
 
-function postVar($name)
-{
-    if (isset ($_POST [$name])) {
-        if (is_numeric($tab[$name])) {
-            return $tab[$name];
-        }
-        if (!empty ($_POST[$name])) {
-            return $_POST[$name];
-        }
-        return TRUE;
-    }
-    return FALSE;
+    $error = "Email ou mot de passe incorrect.";
 }
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+<title>Connexion</title>
+</head>
+<body>
+
+<h1>Connexion</h1>
+
+<?php if (isset($error)) echo "<p style='color:red'>$error</p>"; ?>
+
+<form method="POST">
+    <input type="email" name="email" placeholder="Email" required><br><br>
+    <input type="password" name="password" placeholder="Mot de passe" required><br><br>
+    <button type="submit">Se connecter</button>
+</form>
+
+<p><a href="register.php">Créer un compte</a></p>
+
+</body>
+</html>

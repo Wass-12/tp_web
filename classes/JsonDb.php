@@ -1,6 +1,4 @@
 <?php
-const OBJECT_CLASS = User::class;
-const OBJECT_CLASS = Salon::class;
 
 abstract class JsonDb
 {

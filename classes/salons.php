@@ -1,15 +1,25 @@
 <?php
 include 'JsonObject.php';
+include 'Salon.php';
 
 class Salon extends JsonObject
 {
-    public string $nom;
+       const OBJECT_CLASS = Salon::class;
 
-    public static function create(string $nom): Salon
+    public function getByName(string $nom): Salon|false
     {
-        $salon = new Salon();
-        $salon->nom = $nom;
-        return $salon;
+        foreach ($this->content as $s) {
+            if ($s->nom === $nom) {
+                return $s;
+            }
+        }
+        return false;
     }
+
+    public function insertSalon(Salon $s): int
+    {
+        return $this->insert($s);
+    }
+
 }
 

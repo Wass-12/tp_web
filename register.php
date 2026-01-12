@@ -1,36 +1,32 @@
 <?php
-$usersFile = __DIR__ . "/data/users.json";
-$users = json_decode(file_get_contents($usersFile), true);
+session_start();
 
+include 'classes/UserDb.php';
+include 'classes/User.php';
+
+$db = UserDb::load();
 
 if (!empty($_POST)) {
+
     $email = trim($_POST['email']);
     $pseudo = trim($_POST['pseudo']);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password = $_POST['password'];
 
-    // Vérifier si email existe déjà
-    foreach ($users as $u) {
-        if ($u['email'] === $email) {
-            $error = "Cet email est déjà utilisé.";
-        }
-    }
-
-    if (!isset($error)) {
-        $users[] = [
-            "id" => count($users) + 1,
-            "email" => $email,
-            "pseudo" => $pseudo,
-            "password" => $password
-        ];
-
-        file_put_contents($usersFile, json_encode($users, JSON_PRETTY_PRINT));
+    // Vérifier si l'email existe déjà
+    if ($db->getByEmail($email)) {
+        $error = "Cet email est déjà utilisé.";
+    } else {
+        // Créer l'utilisateur
+        $user = User::create($pseudo, $password, $email);
+        $db->insertUser($user);
+        $db->save();
 
         header("Location: login.php");
         exit;
     }
 }
+//                          <!-- partie front -->
 ?>
-                                <!-- partie front -->
 <!DOCTYPE html>
 <html>
 <head>

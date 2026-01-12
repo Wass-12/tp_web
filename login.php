@@ -1,25 +1,29 @@
 <?php
 session_start();
 
-$users = json_decode(file_get_contents(__DIR__ . "/data/users.json"), true);
+include 'classes/UserDb.php';
 
+$db = UserDb::load();
 
 if (!empty($_POST)) {
+
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    foreach ($users as $u) {
-        if ($u['email'] === $email && password_verify($password, $u['password'])) {
-            $_SESSION['user'] = $u;
-            header("Location: index.php");
-            exit;
-        }
+    // On récupère l'utilisateur APRES avoir l'email
+    $user = $db->getByEmail($email);
+
+    if ($user && password_verify($password, $user->password)) {
+        // On stocke l'utilisateur en tableau dans la session
+        $_SESSION['user'] = json_decode($user->toJson(), true);
+        header("Location: index.php");
+        exit;
     }
 
     $error = "Email ou mot de passe incorrect.";
 }
+//                       partie front 
 ?>
-                            <!-- partie front -->
 <!DOCTYPE html>
 <html>
 <head>

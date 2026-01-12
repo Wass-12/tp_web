@@ -30,7 +30,7 @@ if (!empty($_POST)) {
     }
 }
 ?>
-
+                                <!-- partie front -->
 <!DOCTYPE html>
 <html>
 <head>

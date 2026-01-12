@@ -1,6 +1,6 @@
 <?php
-include 'classes/JsonObject.php';
-include 'classes/User.php';
+include 'JsonObject.php';
+
 class Salon extends JsonObject
 {
     public string $nom;

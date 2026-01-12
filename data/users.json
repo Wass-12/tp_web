@@ -1,14 +1,16 @@
 [
     {
-        "id": 1,
+       
         "login": "tala",
-        "password": "$2y$10$k8Q3....",
-        "email": "tala-informatique@gmail.com"
+        "email": "tala-informatique@gmail.com",
+        "password": "$2y$10$k8Q3...."
+        
     },
     {
-        "id": 2,
+       
         "login": "yoann",
-        "password": "$2y$10$8dF4....",
-        "email": "yoann@example.com"
+        "email": "yoann@example.com",
+        "password": "$2y$10$8dF4...."
+        
     }
 ]

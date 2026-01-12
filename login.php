@@ -19,7 +19,7 @@ if (!empty($_POST)) {
     $error = "Email ou mot de passe incorrect.";
 }
 ?>
-
+                            <!-- partie front -->
 <!DOCTYPE html>
 <html>
 <head>

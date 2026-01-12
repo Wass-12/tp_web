@@ -1,6 +1,7 @@
 <?php
-$usersFile = "data/users.json";
+$usersFile = __DIR__ . "/data/users.json";
 $users = json_decode(file_get_contents($usersFile), true);
+
 
 if (!empty($_POST)) {
     $email = trim($_POST['email']);

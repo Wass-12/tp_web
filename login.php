@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-$users = json_decode(file_get_contents("data/users.json"), true);
+$users = json_decode(file_get_contents(__DIR__ . "/data/users.json"), true);
+
 
 if (!empty($_POST)) {
     $email = trim($_POST['email']);

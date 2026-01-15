@@ -1,32 +1,22 @@
 <?php
 
-abstract class JsonObject
+include 'JsonDb.php';
+include 'salons.php';
+
+class SalonDb extends JsonDb
 {
-    public function toJson(): string
-    {
-        return json_encode($this, JSON_PRETTY_PRINT);
-    }
+    const OBJECT_CLASS = Salon::class;
 
     /**
-     * @throws Exception
+     * Retourne un salon par son nom
      */
-    public static function fromJson(string $str): static
+    public function getByName(string $name): Salon|false
     {
-        $json = json_decode($str);
-
-        if ($json === null) {
-            throw new Exception('Bad json input');
-        }
-
-        $obj = new static();
-
-        foreach (get_class_vars(static::class) as $name => $value) {
-            if (!isset($json->$name)) {
-                throw new Exception("Missing parameter $name");
+        foreach ($this->content as $salon) {
+            if ($salon->name === $name) {
+                return $salon;
             }
-            $obj->$name = $json->$name;
         }
-
-        return $obj;
+        return false;
     }
 }

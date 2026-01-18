@@ -4,6 +4,8 @@ include 'JsonObject.php';
 
 class User extends JsonObject
 {
+    public int $id;
+
     public string $pseudo;
     public string $password;
     public string $email;

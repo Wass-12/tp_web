@@ -1,6 +1,6 @@
 <?php
 
-include 'JsonObject.php';
+require_once 'JsonObject.php';
 
 class User extends JsonObject
 {

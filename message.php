@@ -1,6 +1,6 @@
 <?php
 
-include 'JsonObject.php';
+require_once 'JsonObject.php';
 
 class Message extends JsonObject
 {

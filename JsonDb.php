@@ -21,7 +21,7 @@ abstract class JsonDb
     public function getById(int $id): JsonObject|false
     {
         foreach ($this->content as $obj) {
-            if ($obj->id === $id) { // il a été declarer dans message.php / salons.php / User.php mais il continu de ne pas le reconnaitre je ne commprend pas pourquoi 
+            if ($obj->$id === $id) { // il a été declarer dans message.php / salons.php / User.php mais il continu de ne pas le reconnaitre je ne commprend pas pourquoi 
                 return $obj;
             }
         }
@@ -57,7 +57,7 @@ abstract class JsonDb
     public function delete(int $id): JsonObject|false
     {
         foreach ($this->content as $i => $obj) {
-            if ($obj->id === $id) {
+            if ($obj->$id === $id) {
                 $deleted = $obj;
                 array_splice($this->content, $i, 1);
                 return $deleted;

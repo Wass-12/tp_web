@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once 'UserDb.php';
+require_once 'Userdb.php';
 require_once 'User.php';
 
 $db = UserDb::load();
@@ -24,6 +24,7 @@ if (!empty($_POST)) {
         header("Location: login.php");
         exit;
     }
+var_dump($db->get());
 }
 //                          <!-- partie front -->
 ?>

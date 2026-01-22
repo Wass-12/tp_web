@@ -1,8 +1,8 @@
 [
     {
         "id": 1,
-        "pseudo": "Toto",
+        "pseudo": "troll",
         "password": "1234",
-        "email": "toto@gmail.com"
+        "email": "troll@gmail.com"
     }
 ]

@@ -19,14 +19,14 @@ abstract class JsonDb
      * Retourne un objet par son ID
      */
     public function getById(int $id): JsonObject|false
-    {
-        foreach ($this->content as $obj) {
-            if ($obj->$id === $id) { // il a été declarer dans message.php / salons.php / User.php mais il continu de ne pas le reconnaitre je ne commprend pas pourquoi 
-                return $obj;
-            }
+{
+    foreach ($this->content as $obj) {
+        if ($obj->id === $id) {
+            return $obj;
         }
-        return false;
     }
+    return false;
+}
 
     /**
      * Insère un objet et lui attribue un ID auto-incrémenté
@@ -55,16 +55,16 @@ abstract class JsonDb
      * Supprime un objet par ID
      */
     public function delete(int $id): JsonObject|false
-    {
-        foreach ($this->content as $i => $obj) {
-            if ($obj->$id === $id) {
-                $deleted = $obj;
-                array_splice($this->content, $i, 1);
-                return $deleted;
-            }
+{
+    foreach ($this->content as $i => $obj) {
+        if ($obj->id === $id) {
+            $deleted = $obj;
+            array_splice($this->content, $i, 1);
+            return $deleted;
         }
-        return false;
     }
+    return false;
+}
 
     /**
      * Sauvegarde la base dans un fichier JSON

@@ -2,7 +2,7 @@
     {
         "id": 1,
         "pseudo": "Toto",
-        "password": "$2y$10$dRLpbvvVdkn3myWdwgPRc.8FWxanT.MFXPZBE.CgoRuQyQOC0aDpC",
+        "password": "1234",
         "email": "toto@gmail.com"
     }
 ]

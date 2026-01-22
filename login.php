@@ -4,7 +4,8 @@ session_start();
 require_once 'Userdb.php';
 require_once 'User.php';
 
-
+$userDb = UserDb::load();
+$users = $userDb->get();
 
 if (!empty($_POST)) {
     $email = trim($_POST['email']);

@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 require_once 'JsonObject.php';
 require_once 'Salon.php'; // fichier contenant ta classe Salon
@@ -12,9 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($nom)) {
         // On crée un objet Salon avec la méthode create
         $salonCree = Salon::create($nom);
-    }
-}
-?>
+    } 
+ }
+?>-->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -29,8 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" id="name" name="name" required>
         <button type="submit">Créer</button>
     </form>
-
-    <?php if ($salonCree !== null): ?>
+<?php if ($salonCree !== null): ?>
         <h2>Salon créé</h2>
         <p>Nom du salon : <?= htmlspecialchars($salonCree->name, ENT_QUOTES, 'UTF-8') ?></p>
     <?php endif; ?>

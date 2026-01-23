@@ -1,7 +1,7 @@
 <?php
 
-require_once 'JsonDb.php';
-require_once 'User.php';
+include 'JsonDb.php';
+include 'User.php';
 
 class UserDb extends JsonDb
 {

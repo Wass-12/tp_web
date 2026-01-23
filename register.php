@@ -25,6 +25,7 @@ if (!empty($_POST)) {
         exit;
     }
 var_dump($db->get());
+var_dump($user = User::create($pseudo, $password, $email));
 }
 //                          <!-- partie front -->
 ?>
@@ -32,7 +33,7 @@ var_dump($db->get());
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="style.css">
+<!-- <link rel="stylesheet" href="style.css"> -->
 <title>Inscription</title>
 </head>
 <body>

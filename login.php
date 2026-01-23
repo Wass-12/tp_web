@@ -12,7 +12,7 @@ if (!empty($_POST)) {
     $password = $_POST['password'];
 
     foreach ($users as $u) {
-        if ($u['email'] === $email && password_verify($password, $u['password'])) {
+        if ($u->email === $email && password_verify($password, $u->password)) {
             $_SESSION['user'] = $u;
             header("Location: index.php");
             exit;

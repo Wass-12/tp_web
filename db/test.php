@@ -8,4 +8,6 @@ if ($result === false) {
 } else {
     echo "Écriture réussie\n";
 }
+
+
 ?>

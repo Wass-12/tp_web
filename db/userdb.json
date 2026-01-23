@@ -1,14 +1,15 @@
-[
-    {
-        "id": 1,
-        "pseudo": "troll",
-        "password": "1234",
-        "email": "troll@gmail.com"
-    },
-    {
-        "id": 2,
-        "pseudo": "toto",
-        "password": "1234",
-        "email": "toto@gmail.com"
-    }
-]
+$users = [
+    [
+        "id" => 1,
+        "pseudo" => "troll",
+        "password" => "1234",
+        "email" => "troll@gmail.com"
+    ],
+    [
+        "id" => 2,
+        "pseudo" => "toto", 
+        "password" => "1234",
+        "email" => "toto@gmail.com"
+    ]
+];
+

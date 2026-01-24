@@ -19,14 +19,41 @@ abstract class JsonDb
      * Retourne un objet par son ID
      */
     public function getById(int $id): JsonObject|false
-{
-    foreach ($this->content as $obj) {
-        if ($obj->id === $id) {
-            return $obj;
+    {
+        foreach ($this->content as $obj) {
+            if ($obj->id === $id) {
+                return $obj;
+            }
         }
+        return false;
     }
-    return false;
-}
+
+    /**
+     * 🔍 Recherche générique : retourne tous les objets où $field == $value
+     */
+    public function getBy(string $field, mixed $value): array
+    {
+        $result = [];
+        foreach ($this->content as $obj) {
+            if (property_exists($obj, $field) && $obj->$field === $value) {
+                $result[] = $obj;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * ✔️ Vérifie si un objet existe avec un champ donné
+     */
+    public function exists(string $field, mixed $value): bool
+    {
+        foreach ($this->content as $obj) {
+            if (property_exists($obj, $field) && $obj->$field === $value) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Insère un objet et lui attribue un ID auto-incrémenté
@@ -55,16 +82,16 @@ abstract class JsonDb
      * Supprime un objet par ID
      */
     public function delete(int $id): JsonObject|false
-{
-    foreach ($this->content as $i => $obj) {
-        if ($obj->id === $id) {
-            $deleted = $obj;
-            array_splice($this->content, $i, 1);
-            return $deleted;
+    {
+        foreach ($this->content as $i => $obj) {
+            if ($obj->id === $id) {
+                $deleted = $obj;
+                array_splice($this->content, $i, 1);
+                return $deleted;
+            }
         }
+        return false;
     }
-    return false;
-}
 
     /**
      * Sauvegarde la base dans un fichier JSON

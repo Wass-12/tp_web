@@ -7,17 +7,11 @@ abstract class JsonDb
     /** @var JsonObject[] */
     protected array $content = [];
 
-    /**
-     * Retourne tous les objets
-     */
     public function get(): array
     {
         return $this->content;
     }
 
-    /**
-     * Retourne un objet par son ID
-     */
     public function getById(int $id): JsonObject|false
     {
         foreach ($this->content as $obj) {
@@ -28,9 +22,6 @@ abstract class JsonDb
         return false;
     }
 
-    /**
-     * 🔍 Recherche générique : retourne tous les objets où $field == $value
-     */
     public function getBy(string $field, mixed $value): array
     {
         $result = [];
@@ -42,9 +33,6 @@ abstract class JsonDb
         return $result;
     }
 
-    /**
-     * ✔️ Vérifie si un objet existe avec un champ donné
-     */
     public function exists(string $field, mixed $value): bool
     {
         foreach ($this->content as $obj) {
@@ -55,9 +43,6 @@ abstract class JsonDb
         return false;
     }
 
-    /**
-     * Insère un objet et lui attribue un ID auto-incrémenté
-     */
     public function insert(JsonObject $obj): int
     {
         $obj->id = $this->getNextId();
@@ -65,9 +50,6 @@ abstract class JsonDb
         return $obj->id;
     }
 
-    /**
-     * Modifie un objet existant
-     */
     public function modify(JsonObject $obj): void
     {
         foreach ($this->content as $i => $stored) {
@@ -78,9 +60,6 @@ abstract class JsonDb
         }
     }
 
-    /**
-     * Supprime un objet par ID
-     */
     public function delete(int $id): JsonObject|false
     {
         foreach ($this->content as $i => $obj) {
@@ -93,9 +72,6 @@ abstract class JsonDb
         return false;
     }
 
-    /**
-     * Sauvegarde la base dans un fichier JSON
-     */
     public function save(): void
     {
         $path = self::DB_FOLDER . '/' . strtolower(static::class) . '.json';
@@ -106,11 +82,10 @@ abstract class JsonDb
         }
 
         file_put_contents($path, json_encode($array, JSON_PRETTY_PRINT));
+        echo "Écriture dans : " . realpath($path);
     }
+    
 
-    /**
-     * Charge la base depuis un fichier JSON
-     */
     public static function load(): static
     {
         $path = self::DB_FOLDER . '/' . strtolower(static::class) . '.json';
@@ -128,23 +103,24 @@ abstract class JsonDb
         }
 
         foreach ($raw as $item) {
-            $db->content[] = static::objectFromArray($item);
+
+            if (is_string($item)) {
+                $item = json_decode($item, true);
+            }
+
+            if (is_array($item)) {
+                $db->content[] = static::objectFromArray($item);
+            }
         }
 
         return $db;
     }
 
-    /**
-     * Convertit un tableau en objet JsonObject
-     */
-  protected static function objectFromArray(array $data): JsonObject
-{
-    return static::OBJECT_CLASS::fromJson($data);
-}
+    protected static function objectFromArray(array $data): JsonObject
+    {
+        return static::OBJECT_CLASS::fromJson($data);
+    }
 
-    /**
-     * Retourne le prochain ID auto-incrémenté
-     */
     private function getNextId(): int
     {
         $max = 0;

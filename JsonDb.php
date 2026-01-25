@@ -137,10 +137,10 @@ abstract class JsonDb
     /**
      * Convertit un tableau en objet JsonObject
      */
-    protected static function objectFromArray(array $data): JsonObject
-    {
-        return static::OBJECT_CLASS::fromJson(json_encode($data));
-    }
+  protected static function objectFromArray(array $data): JsonObject
+{
+    return static::OBJECT_CLASS::fromJson($data);
+}
 
     /**
      * Retourne le prochain ID auto-incrémenté

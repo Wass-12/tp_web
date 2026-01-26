@@ -12,6 +12,7 @@ require_once 'SalonDb.php';
 $salonId = $_GET['salonId'] ?? null;
 
 if (!$salonId) {
+     header("Location: salon_a.php");
     die("Aucun salon sélectionné.");
 }
 

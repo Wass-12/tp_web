@@ -14,18 +14,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($nom)) {
 
-        // 1. Charger la base
         $salonDb = SalonDb::load();
 
-        // 2. Créer l'objet
         $salonCree = Salon::create($nom);
 
-        // 3. Insérer dans la base
         $salonDb->insert($salonCree);
 
-        // 4. Sauvegarder dans le fichier JSON
         $salonDb->save();
+
+        // 🔥 Redirection vers le salon créé
+        header("Location: chat.php?salonId=" . $salonCree->id);
+        exit;
     }
+
 }
 ?>
 <!DOCTYPE html>

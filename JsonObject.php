@@ -4,15 +4,13 @@ abstract class JsonObject
 {
     public function toJson(): string
     {
-        return json_encode($this, JSON_PRETTY_PRINT);
+        return json_encode(get_object_vars($this));
     }
 
-    /**
-     * @throws Exception
-     */
-    public static function fromJson(string $str): static
+    public static function fromJson(array|string $input): static
     {
-        $json = json_decode($str);
+        // Si c'est une string JSON → on la décode
+        $json = is_string($input) ? json_decode($input) : (object) $input;
 
         if ($json === null) {
             throw new Exception('Bad json input');

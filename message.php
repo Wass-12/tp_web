@@ -40,14 +40,24 @@ class Message extends JsonObject
     /**
      * Reconstruit un objet Message depuis un tableau JSON
      */
-    public static function fromJson(array $data): self
-    {
-        $m = new self();
-        $m->id        = $data["id"]        ?? 0;
-        $m->salonId   = $data["salonId"]   ?? 0;
-        $m->author    = $data["author"]    ?? "";
-        $m->content   = $data["content"]   ?? "";
-        $m->timestamp = $data["timestamp"] ?? "";
-        return $m;
+public static function fromJson(array|string $input): static
+{
+    // Si c’est une chaîne JSON → on la décode
+    if (is_string($input)) {
+        $input = json_decode($input, true);
     }
+
+    // Si ce n’est pas un tableau → on retourne un objet vide
+    if (!is_array($input)) {
+        return new static();
+    }
+
+    $m = new static();
+    $m->id        = $input["id"]        ?? 0;
+    $m->salonId   = $input["salonId"]   ?? 0;
+    $m->author    = $input["author"]    ?? "";
+    $m->content   = $input["content"]   ?? "";
+    $m->timestamp = $input["timestamp"] ?? "";
+    return $m;
+}
 }

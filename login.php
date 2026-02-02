@@ -21,6 +21,7 @@ if (!empty($_POST)) {
             exit;
         }
     }
+    
 
     $error = "Email ou mot de passe incorrect.";
 }
